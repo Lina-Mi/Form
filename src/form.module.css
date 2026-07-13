@@ -1,0 +1,19 @@
+.form {
+  text-align: center;
+  align-items: center;
+  width: 300px;
+  margin: 50px auto;
+  margin-top: 3%;
+}
+
+.content {
+  display: none;
+}
+
+input[type="checkbox"]:checked + .content {
+  display: block;
+}
+
+.errorLabel {
+  color: red;
+}
