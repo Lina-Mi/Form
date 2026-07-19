@@ -1,35 +1,12 @@
-import { useState } from 'react';
-import styles from './app.module.css';
-
-const initialState = {
-	email: '',
-	password: '',
-  confirmPassword: '',
-};
-
-const useStore = () => {
-	const [state, setState] = useState(initialState);
-
-	return {
-		getState: () => state,
-		updateState: (fieldName, newValue) => {
-			setState({ ...state, [fieldName]: newValue });
-		},
-		resetState: () => {
-			setState(initialState);
-		},
-	};
-};
+import styles from './form.module.css';
+import { useStore } from './utils';
 
 const sendData = (formData) => {
 	console.log(formData);
-};
-
-
-
+}
 
 export const Form = () => {
-	const { getState, updateState, resetState } = useStore();
+	const { getState, updateState} = useStore();
 
 	const onSubmit = (event) => {
 		event.preventDefault();
@@ -41,7 +18,7 @@ export const Form = () => {
 	const onChange = ({ target }) => updateState(target.name, target.value);
 
 	return (
-		<div className={styles.app}>
+		<div className={styles.form}>
 			<form onSubmit={onSubmit}>
 				<input
 					type="email"
@@ -57,16 +34,13 @@ export const Form = () => {
 					placeholder="Password"
 					onChange={onChange}
 				/>
-        <input
-          type="password"
-          name="confirmPassword"
-          value={confirmPassword}
-          placeholder="Confirm password"
-          onChange={onChange}
-/>
-				<button type="button" onClick={resetState}>
-					Reset
-				</button>
+                <input
+                    type="password"
+                    name="confirmPassword"
+                    value={confirmPassword}
+                    placeholder="Confirm password"
+                    onChange={onChange}
+                />
 				<button type="submit">Submit</button>
 			</form>
 		</div>
