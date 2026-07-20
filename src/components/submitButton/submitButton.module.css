@@ -1,0 +1,23 @@
+.submitButton {
+  background: #0046b0;
+  padding: 18px;
+  font-size: 22px;
+  font-weight: 600;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  width: 100%;
+  margin-top: 18px;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  letter-spacing: 1px;
+}
+
+.submitButton:hover {
+  background-color: #002892;
+}
+
+.submitButton:disabled {
+  background-color: #4678e2;
+  cursor: not-allowed;
+}

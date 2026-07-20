@@ -1,9 +1,6 @@
 import styles from './form.module.css';
-import { useStore } from './utils';
-
-const sendData = (formData) => {
-	console.log(formData);
-}
+import { useStore, sendData } from './utils'; 
+import { Field, SubmitButton  } from './components';
 
 export const Form = () => {
 	const { getState, updateState} = useStore();
@@ -18,30 +15,33 @@ export const Form = () => {
 	const onChange = ({ target }) => updateState(target.name, target.value);
 
 	return (
-		<div className={styles.form}>
+		<div className={styles.formContainer}>
 			<form onSubmit={onSubmit}>
-				<input
+				<Field
+				    label="Email address" 
 					type="email"
 					name="email"
 					value={email}
 					placeholder="Email"
 					onChange={onChange}
 				/>
-				<input
+				<Field
+				    label="Password"   
 					type="password"
 					name="password"
 					value={password}
 					placeholder="Password"
 					onChange={onChange}
 				/>
-                <input
+                <Field
+				    label="Confirm password"
                     type="password"
                     name="confirmPassword"
                     value={confirmPassword}
                     placeholder="Confirm password"
                     onChange={onChange}
                 />
-				<button type="submit">Submit</button>
+				<SubmitButton>Submit</SubmitButton>
 			</form>
 		</div>
 	);

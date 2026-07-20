@@ -16,3 +16,7 @@ export const useStore = () => {
         }
     };
 };
+
+export const sendData = (formData) => {
+	console.log(formData);
+};
