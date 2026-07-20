@@ -1,91 +1,10 @@
 .formContainer {
   background: #91b0ff;
-  padding: 40px;
-  text-align: center;
-  align-items: center;
-  width: 615px;
-  height: 554 px;
-  margin: 50px auto;
-  margin-top: 3%;
-  display: grid;
+  padding: 25px;
+  width: 534px;
+  height: 98px;
+  display: flex;
+  flex-direction: column;
   grid-template-columns: 1fr;
   gap: 20px;
 }
-
-.content {
-  display: none;
-}
-
-input[type="checkbox"]:checked + .content {
-  display: block;
-}
-
-.errorLabel {
-  color: red;
-}
-
-/* 
-.formContainer {
-  background-color: #92b6ff; 
-  padding: 40px;
-  border-radius: 8px;
-  width: 400px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.label {
-  font-weight: 600;
-  display: block;
-  margin-bottom: 5px;
-}
-
-.required {
-  color: #d32f2f;
-}
-
-.input {
-  width: 100%;
-  padding: 12px;
-  border: 2px solid #0d47a1;
-  border-radius: 4px;
-  font-family: inherit;
-  font-size: 16px;
-  outline: none;
-}
-
-.input:focus {
-  border-color: #1565c0;
-}
-
-.error {
-  color: #d32f2f;
-  font-size: 14px;
-  margin-top: 4px;
-  display: block;
-}
-
-.submitButton {
-  width: 100%;
-  background-color: #0d47a1;
-  color: white;
-  font-weight: 700;
-  font-size: 18px;
-  padding: 15px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 10px;
-  transition: background-color 0.2s;
-}
-
-.submitButton:disabled {
-  background-color: #648bb9;
-  cursor: not-allowed;
-}
-
-.submitButton:hover:not(:disabled) {
-  background-color: #1565c0;
-} */
