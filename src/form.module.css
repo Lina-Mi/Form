@@ -1,10 +1,22 @@
 .formContainer {
   background: #91b0ff;
-  padding: 25px;
+  padding: 30px;
   width: 534px;
-  height: 98px;
+  display: grid;
+  grid-template-columns: 1fr;
+  /*   gap: 15px; */
+}
+
+.formContainer form {
   display: flex;
   flex-direction: column;
-  grid-template-columns: 1fr;
-  gap: 20px;
+  gap: 10px;
+}
+
+.error {
+  color: #c41429;
+  font-size: 14px;
+  margin-top: 2px;
+  height: 20px;
+  text-align: left;
 }

@@ -1,6 +1,13 @@
 import styles from './inputField.module.css';
 
-export const Field = ({ label, type, name, value, placeholder, onChange }) => {
+export const InputField = ({ 
+  label, 
+  type, 
+  name, 
+  value, 
+  placeholder, 
+  onChange, 
+  onBlur, }) => {
   return (
     <div className={styles.fieldGroup}>
       <label className={styles.label}>
@@ -13,6 +20,7 @@ export const Field = ({ label, type, name, value, placeholder, onChange }) => {
         value={value}
         placeholder={placeholder}
         onChange={onChange}
+        onBlur={onBlur}
       />
     </div>
   );
