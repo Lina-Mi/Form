@@ -6,8 +6,8 @@ export const InputField = ({
   name, 
   value, 
   placeholder, 
-  onChange, 
-  onBlur, }) => {
+  ...props
+}) => {
   return (
     <div className={styles.fieldGroup}>
       <label className={styles.label}>
@@ -19,8 +19,7 @@ export const InputField = ({
         name={name}
         value={value}
         placeholder={placeholder}
-        onChange={onChange}
-        onBlur={onBlur}
+        {...props}
       />
     </div>
   );

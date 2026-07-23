@@ -1,97 +1,73 @@
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import styles from './form.module.css';
-import { useStore, sendData, emailChangeSchema, passwordChangeSchema, confirmPasswordChangeSchema, passwordBlurSchema, validateAndGetErrorMessage  } from './utils'; 
+import { fieldsSchema } from './utils';
 import { InputField, SubmitButton } from './components';
 
-
 export const Form = () => {
-	const { getState, setState} = useStore();
+	const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({
+        defaultValues: {
+            email: '',
+            password: '',
+            confirmPassword: '',
+        },
+		resolver: yupResolver(fieldsSchema),
+    });
 
-	const submitButtonRef = useRef(null);
+	const emailError = errors.email?.message;
+    const passwordError = errors.password?.message;
+    const confirmPasswordError = errors.confirmPassword?.message;
 
-	const { email, password, confirmPassword } = getState();
+const sendFormData = (formData) => {
+    console.log(formData);
+};
 
-	const [emailError, setEmailError] = useState('');
-    const [passwordError, setPasswordError] = useState('');
-    const [confirmPasswordError, setConfirmPasswordError] = useState('');
-
-	const onChange = ({ target }) => {
-        setState(target.name, target.value);
-
-		if (target.name === 'email') {
-            const newError = validateAndGetErrorMessage(
-				emailChangeSchema, 
-				target.value);
-            setEmailError(newError);
-		}
-
-        if (target.name === 'password') {
-            const newError = validateAndGetErrorMessage(
-				passwordChangeSchema, 
-				target.value);
-            setPasswordError(newError);
-			if (target.value.length === 15) {
-                submitButtonRef.current.focus();
-            }
-        } 
-	
-        
-
-		if (target.name === 'confirmPassword') {
-		    const newError = validateAndGetErrorMessage(
-				confirmPasswordChangeSchema, 
-				target.value, 
-				{ password });
-            setConfirmPasswordError(newError);
-        } 
-    };
-
-	const onBlur = ({ target }) => {
-        if (target.name === 'password') {
-            const newError = validateAndGetErrorMessage(
-				passwordBlurSchema, 
-				target.value);
-            setPasswordError(newError);
-        }
-    };
-
-	const onSubmit = (event) => {
-		event.preventDefault();
-		sendData(getState());
-	};
+const submitButtonRef = useRef(null);
 
 	return (
 		<div className={styles.formContainer}>
-			<form onSubmit={onSubmit}>
+			<form onSubmit={handleSubmit(sendFormData)}>
 				<InputField
 				    label="Email address" 
 					type="email"
 					name="email"
-					value={email}
 					placeholder="Email"
-					onChange={onChange}
+					{...register('email')}
 				/>
-				<span className={styles.error}>{emailError}</span>
+				{emailError && (
+                    <span className={styles.error}>
+                        {emailError}
+                    </span>
+                )}
 				<InputField
 				    label="Password"   
 					type="password"
 					name="password"
-					value={password}
 					placeholder="Password"
-					onChange={onChange}
-					onBlur={onBlur}
+					{...register('password')}
 				/>
-				<span className={styles.error}>{passwordError}</span>
+				{passwordError && (
+                    <span className={styles.error}>
+                        {passwordError}
+                    </span>
+                )}
                 <InputField
 				    label="Confirm password"
                     type="password"
                     name="confirmPassword"
-                    value={confirmPassword}
                     placeholder="Confirm password"
-                    onChange={onChange}
+                    {...register('confirmPassword')}
                 />
-				<span className={styles.error}>{confirmPasswordError}</span>
-
+				{confirmPasswordError && (
+                    <span className={styles.error}>
+                        {confirmPasswordError}
+                    </span>
+                )}
 				<SubmitButton
 				    ref={submitButtonRef}
                     type="submit"
