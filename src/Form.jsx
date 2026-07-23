@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import styles from './form.module.css';
-import { useStore, sendData } from './utils'; 
+import { useStore, sendData, emailChangeSchema, passwordChangeSchema, confirmPasswordChangeSchema, passwordBlurSchema, validateAndGetErrorMessage  } from './utils'; 
 import { InputField, SubmitButton } from './components';
 
+
 export const Form = () => {
-	const { getState, updateState} = useStore();
+	const { getState, setState} = useStore();
+
+	const submitButtonRef = useRef(null);
 
 	const { email, password, confirmPassword } = getState();
 
@@ -13,42 +16,44 @@ export const Form = () => {
     const [confirmPasswordError, setConfirmPasswordError] = useState('');
 
 	const onChange = ({ target }) => {
-        updateState(target.name, target.value);
+        setState(target.name, target.value);
 
 		if (target.name === 'email') {
-            if (!target.value.includes('@')) {
-                setEmailError('Email must contain the @ symbol');
-            } else {
-                setEmailError('');
-            }
-        }
+            const newError = validateAndGetErrorMessage(
+				emailChangeSchema, 
+				target.value);
+            setEmailError(newError);
+		}
 
         if (target.name === 'password') {
-            if (target.value.length > 15) {
-                setPasswordError('The password must contain a maximum of 15 characters.');
-            } else {
-                setPasswordError('');
+            const newError = validateAndGetErrorMessage(
+				passwordChangeSchema, 
+				target.value);
+            setPasswordError(newError);
+			if (target.value.length === 15) {
+                submitButtonRef.current.focus();
             }
-        }
+        } 
+	
+        
 
 		if (target.name === 'confirmPassword') {
-		    if (password !== target.value) {
-			    setConfirmPasswordError('Passwords do not match');
-		    } else {
-			    setConfirmPasswordError('');
-		    }
-	    } 
-
+		    const newError = validateAndGetErrorMessage(
+				confirmPasswordChangeSchema, 
+				target.value, 
+				{ password });
+            setConfirmPasswordError(newError);
+        } 
     };
 
 	const onBlur = ({ target }) => {
         if (target.name === 'password') {
-            if (target.value.length < 5) {
-                setPasswordError('The password must contain a minimum of 5 characters.');
-            }
+            const newError = validateAndGetErrorMessage(
+				passwordBlurSchema, 
+				target.value);
+            setPasswordError(newError);
         }
     };
-
 
 	const onSubmit = (event) => {
 		event.preventDefault();
@@ -88,6 +93,8 @@ export const Form = () => {
 				<span className={styles.error}>{confirmPasswordError}</span>
 
 				<SubmitButton
+				    ref={submitButtonRef}
+                    type="submit"
 	                disabled={
 		                !!emailError ||
 		                !!passwordError ||
@@ -99,5 +106,4 @@ export const Form = () => {
 			</form>
 		</div>
 	);
-};
-  
+}; 
