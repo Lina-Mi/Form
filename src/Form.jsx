@@ -5,6 +5,10 @@ import styles from './form.module.css';
 import { fieldsSchema } from './utils';
 import { InputField, SubmitButton } from './components';
 
+const sendFormData = (formData) => {
+    console.log(formData);
+};
+
 export const Form = () => {
 	const {
         register,
@@ -17,15 +21,12 @@ export const Form = () => {
             confirmPassword: '',
         },
 		resolver: yupResolver(fieldsSchema),
+		mode: 'onChange',
     });
 
 	const emailError = errors.email?.message;
     const passwordError = errors.password?.message;
     const confirmPasswordError = errors.confirmPassword?.message;
-
-const sendFormData = (formData) => {
-    console.log(formData);
-};
 
 const submitButtonRef = useRef(null);
 
@@ -35,7 +36,6 @@ const submitButtonRef = useRef(null);
 				<InputField
 				    label="Email address" 
 					type="email"
-					name="email"
 					placeholder="Email"
 					{...register('email')}
 				/>
@@ -47,7 +47,6 @@ const submitButtonRef = useRef(null);
 				<InputField
 				    label="Password"   
 					type="password"
-					name="password"
 					placeholder="Password"
 					{...register('password')}
 				/>
@@ -59,7 +58,6 @@ const submitButtonRef = useRef(null);
                 <InputField
 				    label="Confirm password"
                     type="password"
-                    name="confirmPassword"
                     placeholder="Confirm password"
                     {...register('confirmPassword')}
                 />
