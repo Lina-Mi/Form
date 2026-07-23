@@ -4,7 +4,6 @@ export const InputField = ({
   label, 
   type, 
   name, 
-  value, 
   placeholder, 
   ...props
 }) => {
@@ -17,7 +16,6 @@ export const InputField = ({
         className={styles.input}
         type={type}
         name={name}
-        value={value}
         placeholder={placeholder}
         {...props}
       />
