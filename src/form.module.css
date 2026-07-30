@@ -4,7 +4,6 @@
   width: 534px;
   display: grid;
   grid-template-columns: 1fr;
-  /*   gap: 15px; */
 }
 
 .formContainer form {
