@@ -10,7 +10,8 @@ export const InputField = ({
   return (
     <div className={styles.fieldGroup}>
       <label className={styles.label}>
-        {label}<span className={styles.required}>*</span>
+        {label}
+        {props.required && <span className={styles.required}>*</span>}
       </label>
       <input
         className={styles.input}

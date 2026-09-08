@@ -13,7 +13,7 @@ export const Form = () => {
 	const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isValid, isDirty },
     } = useForm({
         defaultValues: {
             email: '',
@@ -69,10 +69,7 @@ const submitButtonRef = useRef(null);
 				<SubmitButton
 				    ref={submitButtonRef}
                     type="submit"
-	                disabled={
-		                !!emailError ||
-		                !!passwordError ||
-		                !!confirmPasswordError
+	                disabled={!isDirty || !isValid
 	                }
                 >
 	                Submit
